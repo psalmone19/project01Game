@@ -2,8 +2,8 @@ $(document).ready(function() {
   console.log('hello!');
 
 // VARIABLES //
-  var $word = $('.word');
-
+  var $userInput = $('.input-box');
+  var $wordBox = $('<div>');
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
     'prognosticate', 'winnow', 'embed', 'provenance',
@@ -33,25 +33,33 @@ $(document).ready(function() {
     'volunteer', 'commend', 'chilly', 'realm'
   ];
 
-  $
-
-  //
-  function randomWord(term) {
-    var term = math.floor(math.random() * library.length - .1)
-      return library[term];
-  };
-
-  // moves words from left to right
-  $('.start-button').click(function(event) {
+  // moves words from left to right after start button is clicked
+  $('.start-button').on('click', function(evt) {
     $('#title-screen').hide(100);
     $('.hidden').removeClass('hidden');
-    value = $word.css('left') === '100%' ? 0 : '100%';
-      $word.animate({left: value}, 8000);
+    for(var i = 0; i < library.length; i++) {
+      randomWord();
+    }
   });
 
-  // function alternate () {
-  //   $word.
-  // }
+
+  // randomly picks from library
+  function randomWord() {
+    // var value = $wordBox.css('left') === '100%' ? 0 : '100%';
+    term = Math.floor(Math.random() * library.length - .1);
+    $wordBox.html(library[term]);
+      return $wordBox.hide().appendTo('#word-container').fadeIn(1000);
+                       // .animate({left: value}, 8000);
+  };
+
+
+  // checks if user input matches randomWord
+  $userInput.change(function() {
+    if ($userInput.val() == library[term]) {
+      $wordBox.fadeOut( "fast" );
+    }
+  });
+
 
 
 });
