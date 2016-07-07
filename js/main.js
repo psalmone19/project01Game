@@ -3,7 +3,8 @@ $(document).ready(function() {
 
 // VARIABLES //
   var $userInput = $('.input-box');
-  // var $wordBox = $('<div>');
+  var matchArray = [];
+  var playerScore = 0;
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
     'prognosticate', 'winnow', 'embed', 'provenance',
@@ -37,31 +38,43 @@ $(document).ready(function() {
   $('.start-button').on('click', function(evt) {
     $('#title-screen').hide(100);
     $('.hidden').removeClass('hidden');
-    // for(var i = 0; i < library.length; i++) {
-    //   randomWord();
-    // }
+    randomizeWord();
+    $repeatRandom = setInterval(randomizeWord, 6000); // sets the time a new word pops up on the screen
   });
 
-  var repeatRandom = setInterval(randomWord, 3000);
+
   // randomly picks from library
-  function randomWord() {
+  function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
-    var $wordBox = $('<div>').html('hello');
-    // var $wordBox = $('<div>').html(library[term]);
-      return $wordBox.appendTo('#word-container').fadeIn(800);
-      // repeatRandom;
+    $wordBox = $('<div>').css('position', 'absolute').html(library[term]);
+    var value = $wordBox.css('left') == '100%' ? 0 : '100%'; //
+    matchArray.push($wordBox); // every new random word is pushed into a new array
+    console.log(matchArray);
+      return $wordBox.appendTo('#word-container').fadeIn('fast').animate({left: value}, 9000);
   };
 
 
   // checks if userInput matches randomWord
-  $userInput.change(function() {
-    if ($userInput.val() == library[term]) {
-      $wordBox.fadeOut( "fast" );
-      $userInput.val('');
-    } else {
-      $userInput.val('');
-    }
+  $userInput.on('change', function() {
+    // matchArray.each(function(){
+      if ($userInput.val() ===  library[term]){
+        $wordBox.hide();
+        $userInput.val('');
+        addScore();
+      } else {
+        $userInput.val('');
+      }
+    // })
   });
+
+
+  // scoring system
+  function addScore() {
+    $userInput.each(function() {
+      console.log (playerScore++);
+      $('.score').text('score: ' + playerScore);
+    })
+  }
 
 
 });
@@ -69,4 +82,6 @@ $(document).ready(function() {
 
 // var value = $wordBox.css('left') == '100%' ? 0 : '100%';
 // .animate({left: value}, 8000);
+// updateScore = setInterval(addScore);
+// css('position', 'absolute')
 
