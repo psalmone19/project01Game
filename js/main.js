@@ -1,7 +1,7 @@
 $(document).ready(function() {
   console.log('hello!');
 
-// VARIABLES //
+  // VARIABLES //
   var $userInput = $('.input-box');
   var matchArray = [];
   var playerScore = 0;
@@ -12,7 +12,7 @@ $(document).ready(function() {
     'cornucopia', 'protract', 'indenture', 'academia',
     'disgorge', 'ethos', 'quaff', 'libation',
     'eschew', 'expertly', 'relevance', 'pessimist',
-    'prod', 'compress', 'admnistrator', 'shoddy',
+    'prod', 'compress', 'administrator', 'shoddy',
     'resource', 'dwindle', 'revere', 'college',
     'touchstone', 'articulate', 'goad', 'fraught',
     'disparity', 'consequential', 'expend', 'temerity',
@@ -34,41 +34,62 @@ $(document).ready(function() {
     'volunteer', 'commend', 'chilly', 'realm'
   ];
 
-  // moves words from left to right after start button is clicked
+  // HIDES TITLE SCREEN AND INITIATES GAME
   $('.start-button').on('click', function(evt) {
     $('#title-screen').hide(100);
     $('.hidden').removeClass('hidden');
     randomizeWord();
+    countDown();
     $repeatRandom = setInterval(randomizeWord, 6000); // sets the time a new word pops up on the screen
   });
 
+  // TIMER COUNTDOWN
+  function countDown() {
+    var seconds = 60;
+    var runOut = false;
+    var timerId = setInterval(function(){
+      if (seconds > 0) {
+        seconds--;
+        $('.timer').text('clock: ' + '0' + ':' + seconds);
+      } else {
+        clearInterval(timerId);
+        gameOver();
+        return;
+      }
+    }, 1000);
+  }
 
-  // randomly picks from library
+  // RANDOMLY PICKS FROM LIBRARY
   function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
-    $wordBox = $('<div>').css('position', 'absolute').html(library[term]);
-    var value = $wordBox.css('left') == '100%' ? 0 : '100%'; //
-    matchArray.push($wordBox); // every new random word is pushed into a new array
-    console.log(matchArray);
-      return $wordBox.appendTo('#word-container').fadeIn('fast').animate({left: value}, 9000);
+    $wordBox = $('<div>').css({
+      position: 'absolute',
+      bottom: randomHeight(),
+      'font-size': '25px'
+    }).html(library[term]);
+    var value = $wordBox.css('left') == '100%' ? 0 : '100%';
+    $wordBox.appendTo('#word-container').animate({left: value}, 6000);
   };
 
+  function randomHeight() {
+    var max = 600;
+    var min = 200;
+    var height = Math.floor(Math.random() * (max - min + 1)) + min;
+    return (height + 'px');
+  }
 
-  // checks if userInput matches randomWord
+  // CHECKS IF USER INPUT MATCHES RANDOM WORD
   $userInput.on('change', function() {
-    // matchArray.each(function(){
       if ($userInput.val() ===  library[term]){
-        $wordBox.hide();
-        $userInput.val('');
-        addScore();
+          $wordBox.hide();
+          $userInput.val('');
+          addScore();
       } else {
-        $userInput.val('');
+          $userInput.val('');
       }
-    // })
   });
 
-
-  // scoring system
+  // SCORING SYSTEM
   function addScore() {
     $userInput.each(function() {
       console.log (playerScore++);
@@ -76,12 +97,18 @@ $(document).ready(function() {
     })
   }
 
-
+  // STOPS THE GAME
+  function gameOver() {
+    clearInterval($repeatRandom);
+    return;
+  }
 });
 
 
 // var value = $wordBox.css('left') == '100%' ? 0 : '100%';
 // .animate({left: value}, 8000);
 // updateScore = setInterval(addScore);
-// css('position', 'absolute')
-
+// css('position', 'relative')
+// position: 'absolute',
+// matchArray.push($wordBox); // every new random word is pushed into a new array
+// console.log(matchArray);
