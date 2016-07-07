@@ -65,7 +65,7 @@ h1 {
 
 /**********BOTTOM CONTAINER**********/
 #bottom-container {
-  justify-content: space-between;
+  justify-content: center;
   display: flex;
   background-color: #43cd80;
   /*align-items: center;*/
@@ -74,15 +74,12 @@ h1 {
 
 /*divs in bottom container*/
 #bottom-container .score {
-  padding: 3px;
   text-align: center;
-  background-color: white;
+  font-size: 20px;
 }
 
 #bottom-container .miss {
-  padding: 3px;
-  text-align: center;
-  background-color: #f50057;
+  font-size: 20px;
 }
 
 /*input text box*/

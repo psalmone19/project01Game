@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 // VARIABLES //
   var $userInput = $('.input-box');
-  var $wordBox = $('<div>');
+  // var $wordBox = $('<div>');
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
     'prognosticate', 'winnow', 'embed', 'provenance',
@@ -37,34 +37,36 @@ $(document).ready(function() {
   $('.start-button').on('click', function(evt) {
     $('#title-screen').hide(100);
     $('.hidden').removeClass('hidden');
-    for(var i = 0; i < library.length; i++) {
-      randomWord();
-    }
+    // for(var i = 0; i < library.length; i++) {
+    //   randomWord();
+    // }
   });
 
-
+  var repeatRandom = setInterval(randomWord, 3000);
   // randomly picks from library
   function randomWord() {
-    // var value = $wordBox.css('left') === '100%' ? 0 : '100%';
     term = Math.floor(Math.random() * library.length - .1);
-    $wordBox.html(library[term]);
-      return $wordBox.hide().appendTo('#word-container').fadeIn(1000);
-                       // .animate({left: value}, 8000);
+    var $wordBox = $('<div>').html('hello');
+    // var $wordBox = $('<div>').html(library[term]);
+      return $wordBox.appendTo('#word-container').fadeIn(800);
+      // repeatRandom;
   };
 
 
-  // checks if user input matches randomWord
+  // checks if userInput matches randomWord
   $userInput.change(function() {
     if ($userInput.val() == library[term]) {
       $wordBox.fadeOut( "fast" );
+      $userInput.val('');
+    } else {
+      $userInput.val('');
     }
   });
-
 
 
 });
 
 
-
-
+// var value = $wordBox.css('left') == '100%' ? 0 : '100%';
+// .animate({left: value}, 8000);
 
