@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   // VARIABLES //
   var $userInput = $('.input-box');
-  var matchArray = [];
+  var currentArray = [];
   var playerScore = 0;
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
@@ -40,7 +40,7 @@ $(document).ready(function() {
     $('.hidden').removeClass('hidden');
     randomizeWord();
     countDown();
-    $repeatRandom = setInterval(randomizeWord, 6000); // sets the time a new word pops up on the screen
+    $repeatRandom = setInterval(randomizeWord, 8000); // sets the time a new word pops up on the screen
   });
 
   // TIMER COUNTDOWN
@@ -53,25 +53,28 @@ $(document).ready(function() {
         $('.timer').text('clock: ' + '0' + ':' + seconds);
       } else {
         clearInterval(timerId);
-        gameOver();
+        endGame();
         return;
       }
     }, 1000);
   }
 
-  // RANDOMLY PICKS FROM LIBRARY
+  // RANDOMLY PICKS WORD FROM LIBRARY
   function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
+    currentArray.push(term);
+    console.log(currentArray);
     $wordBox = $('<div>').css({
       position: 'absolute',
-      bottom: randomHeight(),
+      bottom: randomizeHeight(),
       'font-size': '25px'
     }).html(library[term]);
-    var value = $wordBox.css('left') == '100%' ? 0 : '100%';
-    $wordBox.appendTo('#word-container').animate({left: value}, 6000);
+    value = $wordBox.css('left') == '100%' ? 0 : '100%';
+    $wordBox.appendTo('#word-container').animate({left: value}, 8000);
   };
 
-  function randomHeight() {
+  // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
+  function randomizeHeight() {
     var max = 600;
     var min = 200;
     var height = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -80,7 +83,7 @@ $(document).ready(function() {
 
   // CHECKS IF USER INPUT MATCHES RANDOM WORD
   $userInput.on('change', function() {
-      if ($userInput.val() ===  library[term]){
+      if ($userInput.val() ===  currentArray.indexOf() < currentArray.length){
           $wordBox.hide();
           $userInput.val('');
           addScore();
@@ -98,10 +101,11 @@ $(document).ready(function() {
   }
 
   // STOPS THE GAME
-  function gameOver() {
+  function endGame() {
     clearInterval($repeatRandom);
     return;
   }
+
 });
 
 
@@ -110,5 +114,5 @@ $(document).ready(function() {
 // updateScore = setInterval(addScore);
 // css('position', 'relative')
 // position: 'absolute',
-// matchArray.push($wordBox); // every new random word is pushed into a new array
+// currentArray.push($wordBox); // every new random word is pushed into a new array
 // console.log(matchArray);
