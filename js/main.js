@@ -77,6 +77,7 @@ $(document).ready(function() {
     }, 1000);
   }
 
+
   // RANDOMLY PICKS WORD FROM LIBRARY
   function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
@@ -144,7 +145,7 @@ $(document).ready(function() {
 
 // function stopAnimation() {
 //   $wordBox.each(function(){
-//     if ($wordBox.css('right') == '100%') {
+//     if (wordsOnScreen[library[term]].css('right') == '100%') {
 //       wordsOnScreen[library[term]].hide();
 //     }
 //   })

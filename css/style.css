@@ -13,7 +13,7 @@ h1 {
 #title-screen {
   background-color: #7f87cf;
   width: 100%;
-  height: 102vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
