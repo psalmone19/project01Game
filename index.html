@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Typing Speed Game</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
   <script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -15,17 +16,21 @@
   <div class="hidden">
     <div id="wrapper">
       <div id="top-container">
-        <div class="timer">clock: 1:00</div>
+        <div class="timer">1:00</div>
       </div>
       <div id="word-container">
+        <!-- <div class="final-score">
+        <button type="button">Reset</button>
+        </div> -->
       </div>
       <div id="bottom-container">
         <div class="score">score: &nbsp;</div>
         <div class="input-box-container">
-        <input class="input-box" type="text" autofocus="autofocus" placeholder="type here!"></input>
+        <input class="input-box" type="text" autofocus="autofocus" placeholder="type word here!"></input>
         </div>
         <div class="miss">miss: &nbsp;</div>
       </div>
+      <button class="reset" type="button">Reset</button>
     </div>
   </div>
 <script src="js/main.js"></script>

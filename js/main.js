@@ -6,6 +6,7 @@ $(document).ready(function() {
   var currentWordArr = [];
   var wordsOnScreen = {}
   var playerScore = 0;
+  var playerMiss = 0;
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
     'prognosticate', 'winnow', 'embed', 'provenance',
@@ -41,23 +42,36 @@ $(document).ready(function() {
     $('.hidden').removeClass('hidden');
     randomizeWord();
     countDown();
-    $repeatRandom = setInterval(randomizeWord, 2000); // sets the time a new word pops up on the screen
+    $repeatRandom = setInterval(randomizeWord, 1000); // sets the time a new word pops up on the screen
+    return;
   });
 
   // TIMER COUNTDOWN
   function countDown() {
+    var $finalScore = $('<div>');
     var seconds = 60;
     var runOut = false;
     var timerId = setInterval(function(){
       if (seconds > 10) {
         seconds--;
-        $('.timer').text('clock ' + ':' + seconds);
+        $('.timer').text(':' + seconds);
       } else if (seconds >= 1 && seconds <= 10) {
         seconds--;
-        $('.timer').text('clock ' + ':' + '0' + seconds);
+        $('.timer').text(':' + '0' + seconds).css('color', '#ff0000');
       } else {
           clearInterval(timerId);
           endGame();
+          $finalScore.css({
+              'background-color': 'white',
+              'text-align': 'center',
+              'font-size': '100px',
+              'height': '100%',
+              'widht': '100%',
+              'padding-top': '7%',
+              'display': 'flex',
+              'justify-content': 'center',
+              'align-item': 'center'
+          }).html('Your score: ' + '<br>' + playerScore).appendTo('#word-container');
           return;
       }
     }, 1000);
@@ -67,22 +81,21 @@ $(document).ready(function() {
   function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
     currentWordArr.push(library[term]);
-    // console.log(currentWordArr);
     $wordBox = $('<div>').css({
-      position: 'absolute',
-      bottom: randomizeHeight(),
-      'font-size': '25px',
-      'color': 'white'
+        position: 'absolute',
+        bottom: randomizeHeight(),
+        'font-size': '25px',
+        'color': 'white',
     }).html(library[term]);
     value = $wordBox.css('left') == '100%' ? 0 : '100%';
     $wordBox.appendTo('#word-container').animate({left: value}, 20000);
-    wordsOnScreen[library[term]] = $wordBox;
-    console.log(wordsOnScreen)
+    wordsOnScreen[library[term]] = $wordBox; // puts term inside object, assigning key value.
+    return;
   };
 
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
   function randomizeHeight() {
-    var max = 600;
+    var max = 500;
     var min = 200;
     var height = Math.floor(Math.random() * (max - min + 1)) + min;
     return (height + 'px');
@@ -91,21 +104,27 @@ $(document).ready(function() {
   // CHECKS IF USER INPUT MATCHES RANDOM WORD
   $userInput.on('change', function() {
       if (currentWordArr.indexOf($userInput.val()) != -1){
-          console.log("true")
           wordsOnScreen[$userInput.val()].hide();
           $userInput.val('');
           addScore();
       } else {
           $userInput.val('');
+          missWord();
       }
   });
 
   // SCORING SYSTEM
   function addScore() {
     $userInput.each(function() {
-      console.log (playerScore++);
+      playerScore++
       $('.score').text('score: ' + playerScore);
     })
+  }
+
+  // MISS LOGIC
+  function missWord() {
+    playerMiss++;
+    $('.miss').text('miss: ' + playerMiss);
   }
 
   // STOPS THE GAME
@@ -114,14 +133,21 @@ $(document).ready(function() {
     return;
   }
 
+  // RESETS THE GAME
+  $('.reset').on('click', function(){
+    location.reload();
+  });
+
 });
 
 
-// var value = $wordBox.css('left') == '100%' ? 0 : '100%';
-// .animate({left: value}, 8000);
-// updateScore = setInterval(addScore);
-// css('position', 'relative')
-// position: 'absolute',
-// currentWordArr.push($wordBox); // every new random word is pushed into a new array
-// console.log(matchArray);
-// currentWordArr.indexOf($userInput.val()) != -1){
+
+// function stopAnimation() {
+//   $wordBox.each(function(){
+//     if ($wordBox.css('right') == '100%') {
+//       wordsOnScreen[library[term]].hide();
+//     }
+//   })
+// }
+
+
