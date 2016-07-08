@@ -1,7 +1,7 @@
 $(document).ready(function() {
   console.log('hello!');
 
-  // VARIABLES //
+  // VARIABLES
   var $userInput = $('.input-box');
   var currentWordArr = [];
   var wordsOnScreen = {}
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
   // HIDES TITLE SCREEN AND INITIATES GAME
   $('.start-button').on('click', function(evt) {
-    $('#title-screen').hide(100);
+    $('#title-screen').hide('fast');
     $('.hidden').removeClass('hidden');
     randomizeWord();
     countDown();
@@ -72,7 +72,6 @@ $(document).ready(function() {
               'justify-content': 'center',
               'align-item': 'center'
           }).html('Your score: ' + '<br>' + playerScore).appendTo('#word-container');
-          return;
       }
     }, 1000);
   }
@@ -91,15 +90,14 @@ $(document).ready(function() {
     value = $wordBox.css('left') == '100%' ? 0 : '100%';
     $wordBox.appendTo('#word-container').animate({left: value}, 20000);
     wordsOnScreen[library[term]] = $wordBox; // puts term inside object, assigning key value.
-    return;
-  };
+  }
 
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
   function randomizeHeight() {
-    var max = 500;
-    var min = 200;
+    var max = 85;
+    var min = 25;
     var height = Math.floor(Math.random() * (max - min + 1)) + min;
-    return (height + 'px');
+    return (height + '%');
   }
 
   // CHECKS IF USER INPUT MATCHES RANDOM WORD
@@ -112,7 +110,7 @@ $(document).ready(function() {
           $userInput.val('');
           missWord();
       }
-  });
+  })
 
   // SCORING SYSTEM
   function addScore() {
@@ -131,13 +129,12 @@ $(document).ready(function() {
   // STOPS THE GAME
   function endGame() {
     clearInterval($repeatRandom);
-    return;
   }
 
   // RESETS THE GAME
   $('.reset').on('click', function(){
     location.reload();
-  });
+  })
 
 });
 
