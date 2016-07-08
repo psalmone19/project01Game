@@ -49,6 +49,15 @@ h1 {
 }
 
 
+/**********TOP CONTAINER**********/
+#top-container {
+  justify-content: center;
+  display: flex;
+  background-color: #ff0000;
+  align-items: center;
+  text-align: center;
+}
+
 
 /**********WORD CONTAINER**********/
 #word-container   {
@@ -88,9 +97,12 @@ h1 {
   padding: 8px;
 }
 
-/*#bottom-container .miss {
-  font-size: 20px;
-}*/
+#bottom-container .miss {
+  background-color: #ffff00;
+  text-align: center;
+  margin: 5px;
+  padding: 8px;
+}
 
 #bottom-container .input-box{
   width: 300px;

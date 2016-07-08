@@ -41,7 +41,7 @@ $(document).ready(function() {
     $('.hidden').removeClass('hidden');
     randomizeWord();
     countDown();
-    $repeatRandom = setInterval(randomizeWord, 1000); // sets the time a new word pops up on the screen
+    $repeatRandom = setInterval(randomizeWord, 2000); // sets the time a new word pops up on the screen
   });
 
   // TIMER COUNTDOWN
@@ -49,13 +49,16 @@ $(document).ready(function() {
     var seconds = 60;
     var runOut = false;
     var timerId = setInterval(function(){
-      if (seconds > 0) {
+      if (seconds > 10) {
         seconds--;
-        $('.timer').text('clock: ' + '0' + ':' + seconds);
+        $('.timer').text('clock ' + ':' + seconds);
+      } else if (seconds >= 1 && seconds <= 10) {
+        seconds--;
+        $('.timer').text('clock ' + ':' + '0' + seconds);
       } else {
-        clearInterval(timerId);
-        endGame();
-        return;
+          clearInterval(timerId);
+          endGame();
+          return;
       }
     }, 1000);
   }
@@ -68,10 +71,11 @@ $(document).ready(function() {
     $wordBox = $('<div>').css({
       position: 'absolute',
       bottom: randomizeHeight(),
-      'font-size': '25px'
+      'font-size': '25px',
+      'color': 'white'
     }).html(library[term]);
     value = $wordBox.css('left') == '100%' ? 0 : '100%';
-    $wordBox.appendTo('#word-container').animate({left: value}, 8000);
+    $wordBox.appendTo('#word-container').animate({left: value}, 20000);
     wordsOnScreen[library[term]] = $wordBox;
     console.log(wordsOnScreen)
   };
