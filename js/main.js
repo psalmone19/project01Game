@@ -3,7 +3,8 @@ $(document).ready(function() {
 
   // VARIABLES //
   var $userInput = $('.input-box');
-  var currentArray = [];
+  var currentWordArr = [];
+  var wordsOnScreen = {}
   var playerScore = 0;
   var library = [
     'evaluative', 'cartographer', 'discomfit', 'psyche',
@@ -40,7 +41,7 @@ $(document).ready(function() {
     $('.hidden').removeClass('hidden');
     randomizeWord();
     countDown();
-    $repeatRandom = setInterval(randomizeWord, 8000); // sets the time a new word pops up on the screen
+    $repeatRandom = setInterval(randomizeWord, 1000); // sets the time a new word pops up on the screen
   });
 
   // TIMER COUNTDOWN
@@ -62,8 +63,8 @@ $(document).ready(function() {
   // RANDOMLY PICKS WORD FROM LIBRARY
   function randomizeWord() {
     term = Math.floor(Math.random() * library.length - .1);
-    currentArray.push(term);
-    console.log(currentArray);
+    currentWordArr.push(library[term]);
+    // console.log(currentWordArr);
     $wordBox = $('<div>').css({
       position: 'absolute',
       bottom: randomizeHeight(),
@@ -71,6 +72,8 @@ $(document).ready(function() {
     }).html(library[term]);
     value = $wordBox.css('left') == '100%' ? 0 : '100%';
     $wordBox.appendTo('#word-container').animate({left: value}, 8000);
+    wordsOnScreen[library[term]] = $wordBox;
+    console.log(wordsOnScreen)
   };
 
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
@@ -83,8 +86,9 @@ $(document).ready(function() {
 
   // CHECKS IF USER INPUT MATCHES RANDOM WORD
   $userInput.on('change', function() {
-      if ($userInput.val() ===  currentArray.indexOf() < currentArray.length){
-          $wordBox.hide();
+      if (currentWordArr.indexOf($userInput.val()) != -1){
+          console.log("true")
+          wordsOnScreen[$userInput.val()].hide();
           $userInput.val('');
           addScore();
       } else {
@@ -114,5 +118,6 @@ $(document).ready(function() {
 // updateScore = setInterval(addScore);
 // css('position', 'relative')
 // position: 'absolute',
-// currentArray.push($wordBox); // every new random word is pushed into a new array
+// currentWordArr.push($wordBox); // every new random word is pushed into a new array
 // console.log(matchArray);
+// currentWordArr.indexOf($userInput.val()) != -1){
