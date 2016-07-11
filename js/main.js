@@ -43,7 +43,6 @@ $(document).ready(function() {
     randomizeWord();
     countDown();
     $repeatRandom = setInterval(randomizeWord, 1000); // sets the time a new word pops up on the screen
-    return;
   });
 
   // TIMER COUNTDOWN
@@ -55,7 +54,7 @@ $(document).ready(function() {
       if (seconds > 10) {
         seconds--;
         $('.timer').text(':' + seconds);
-      } else if (seconds >= 1 && seconds <= 10) {
+      } else if (seconds >= 1 && seconds <= 11) {
         seconds--;
         $('.timer').text(':' + '0' + seconds).css('color', '#ff0000');
       } else {
@@ -79,7 +78,7 @@ $(document).ready(function() {
 
   // RANDOMLY PICKS WORD FROM LIBRARY
   function randomizeWord() {
-    term = Math.floor(Math.random() * library.length - .1);
+    term = getWord();
     currentWordArr.push(library[term]);
     $wordBox = $('<div>').css({
         position: 'absolute',
@@ -90,6 +89,21 @@ $(document).ready(function() {
     value = $wordBox.css('left') == '100%' ? 0 : '100%';
     $wordBox.appendTo('#word-container').animate({left: value}, 20000);
     wordsOnScreen[library[term]] = $wordBox; // puts term inside object, assigning key value.
+  }
+
+  // function wordFilter() {
+  //   word = Math.floor(Math.random() * library.length - .1);
+  //   if ((wordsOnScreen[library[word]])) {
+  //     word = Math.floor(Math.random() * library.length - .1);
+  //   }
+  //   return word;
+  // }
+  function getWord() {
+    var word;
+    do {
+      word = Math.floor(Math.random() * library.length - .1);
+    } while (wordsOnScreen[library[word]])
+    return word;
   }
 
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
@@ -129,6 +143,7 @@ $(document).ready(function() {
   // STOPS THE GAME
   function endGame() {
     clearInterval($repeatRandom);
+    $('#word-container').children().remove();
   }
 
   // RESETS THE GAME
