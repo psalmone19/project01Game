@@ -65,7 +65,7 @@ $(document).ready(function() {
               'text-align': 'center',
               'font-size': '100px',
               'height': '100%',
-              'widht': '100%',
+              'width': '100%',
               'padding-top': '7%',
               'display': 'flex',
               'justify-content': 'center',
@@ -91,13 +91,6 @@ $(document).ready(function() {
     wordsOnScreen[library[term]] = $wordBox; // puts term inside object, assigning key value.
   }
 
-  // function wordFilter() {
-  //   word = Math.floor(Math.random() * library.length - .1);
-  //   if ((wordsOnScreen[library[word]])) {
-  //     word = Math.floor(Math.random() * library.length - .1);
-  //   }
-  //   return word;
-  // }
   function getWord() {
     var word;
     do {
@@ -108,8 +101,8 @@ $(document).ready(function() {
 
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
   function randomizeHeight() {
-    var max = 85;
-    var min = 25;
+    var max = 80;
+    var min = 20;
     var height = Math.floor(Math.random() * (max - min + 1)) + min;
     return (height + '%');
   }
@@ -163,4 +156,12 @@ $(document).ready(function() {
 //   })
 // }
 
+
+// function wordFilter() {
+//   word = Math.floor(Math.random() * library.length - .1);
+//   if ((wordsOnScreen[library[word]])) {
+//     word = Math.floor(Math.random() * library.length - .1);
+//   }
+//   return word;
+// }
 
