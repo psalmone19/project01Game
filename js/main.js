@@ -58,6 +58,7 @@ $(document).ready(function() {
         seconds--;
         $('.timer').text(':' + '0' + seconds).css('color', '#ff0000');
       } else {
+          $('.input-box').attr('disabled', 'disabled');
           clearInterval(timerId);
           endGame();
           $finalScore.css({
