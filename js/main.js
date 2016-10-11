@@ -102,7 +102,7 @@ $(document).ready(function() {
   // RANDOMLY SETS HEIGHT THAT A WORD IS ANIMATED FROM
   function randomizeHeight() {
     var max = 80;
-    var min = 20;
+    var min = 30;
     var height = Math.floor(Math.random() * (max - min + 1)) + min;
     return (height + '%');
   }
