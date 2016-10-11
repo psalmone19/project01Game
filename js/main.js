@@ -70,7 +70,7 @@ $(document).ready(function() {
               'display': 'flex',
               'justify-content': 'center',
               'align-item': 'center'
-          }).html('Your score: ' + '<br>' + playerScore).appendTo('#word-container');
+          }).html('Your score: ' + '<br>' + (playerScore - playerMiss)).appendTo('#word-container');
       }
     }, 1000);
   }
